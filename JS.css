@@ -1,0 +1,286 @@
+@font-face {
+    font-family: 'MaobiFont';
+    src: url('https://cdn.jsdelivr.net/gh/gemini-pro/fonts@main/fonts/Maobi.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --bg-color: #1a1510;
+    --wood-dark: #3e2723;
+    --wood-light: #5d4037;
+    --text-color: #e3d8c9;
+    --accent-color: #c49a6c;
+    --line-color: #6a4f3a;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'MaobiFont', serif;
+    color: var(--text-color);
+    background: radial-gradient(circle at top left, var(--wood-dark), transparent),
+                radial-gradient(circle at bottom right, var(--wood-light), transparent),
+                var(--bg-color);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 800px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
+    padding: 20px;
+    background: rgba(46, 30, 26, 0.6);
+    border: 2px solid var(--line-color);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    border-radius: 12px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.main-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+.header {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px var(--shadow-color);
+}
+
+.sub-title {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    text-shadow: 1px 1px 2px var(--shadow-color);
+}
+
+.turtle-shell {
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    position: relative;
+    background-color: #8B4513;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    box-shadow: inset 0 -5px 10px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+    transform-origin: bottom center;
+}
+
+.turtle-shell:hover {
+    transform: scale(1.05);
+}
+
+.turtle-shell::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    border-radius: 50% / 100% 100% 0 0;
+    background-color: #5C3317;
+    border: 2px solid #3d2315;
+    box-sizing: border-box;
+    box-shadow: inset 0 -2px 5px rgba(0,0,0,0.4);
+}
+
+.turtle-shell::after {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle at center, transparent 30%, #4a2a1b 30%);
+    background-size: 20px 20px;
+}
+
+
+@keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    10%, 30%, 50%, 70%, 90% { transform: rotate(-10deg); }
+    20%, 40%, 60%, 80% { transform: rotate(10deg); }
+}
+
+.shaking {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    transform-origin: center center;
+}
+
+.coin {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: var(--wood-dark);
+    background: linear-gradient(145deg, #a8845e, #7c583a);
+    border: 2px solid #5a402d;
+    box-shadow: 2px 4px 6px var(--shadow-color), inset -2px -2px 5px rgba(0,0,0,0.3);
+}
+
+.coin.visible {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.coin.solid { background: linear-gradient(145deg, #e3d8c9, #c49a6c); }
+.coin.broken { background: linear-gradient(145deg, #b7926b, #8b6b45); }
+
+.line-display {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 100%;
+    height: 300px;
+    padding: 10px 0;
+}
+
+.yao {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.yao.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.yao-solid {
+    width: 100%;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+.yao-broken {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    height: 8px;
+}
+
+.yao-broken div {
+    flex: 1;
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+.yao-symbol {
+    font-size: 1rem;
+    position: absolute;
+    left: calc(50% + 50px);
+    opacity: 0.8;
+}
+
+.result-panel {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--line-color);
+    padding: 20px;
+    border-radius: 12px;
+    overflow: auto;
+    position: relative;
+    transform: translateX(100px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.result-panel.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.result-panel h2 {
+    font-size: 2rem;
+    margin: 0 0 10px;
+    color: var(--accent-color);
+}
+
+.result-panel h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: var(--accent-color);
+}
+
+.result-panel p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.explanation {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.loading-dots {
+    font-size: 2rem;
+    letter-spacing: 5px;
+    text-align: center;
+    animation: dot-pulse 1.5s infinite;
+}
+
+@keyframes dot-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.reset-btn {
+    appearance: none;
+    border: none;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    font-family: 'MaobiFont', serif;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 2px 4px 8px var(--shadow-color);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.reset-btn:active {
+    transform: translateY(2px);
+    box-shadow: 1px 2px 4px var(--shadow-color);
+}
+
+.hidden {
+    display: none;
+}
